@@ -1,9 +1,43 @@
 <Window xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:models="using:notatnik"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        mc:Ignorable="d" d:DesignWidth="900" d:DesignHeight="650"
         x:Class="notatnik.MainWindow"
-        Title="notatnik">
-    Welcome to Avalonia!
+        Title="Notatnik"
+        Width="900"
+        Height="650"
+        MinWidth="620"
+        MinHeight="480">
+    <Grid RowDefinitions="Auto,*">
+        <StackPanel Grid.Row="0" Margin="24" Spacing="12">
+            <TextBlock FontSize="26" FontWeight="Bold" Text="Notatnik" />
+            <TextBox x:Name="TitleInput" PlaceholderText="Tytuł notatki" />
+            <TextBox x:Name="ContentInput"
+                     AcceptsReturn="True"
+                     MinHeight="120"
+                     TextWrapping="Wrap"
+                     VerticalContentAlignment="Top"
+                     PlaceholderText="Treść notatki" />
+            <Button x:Name="SaveButton"
+                    HorizontalAlignment="Left"
+                    Click="SaveButton_Click"
+                    Content="Zapisz notatkę" />
+            <TextBlock x:Name="StatusText" TextWrapping="Wrap" />
+        </StackPanel>
+
+        <Border Grid.Row="1" Margin="24,0,24,24" Padding="12" BorderBrush="#808080" BorderThickness="1">
+            <ListBox x:Name="NotesList">
+                <ListBox.ItemTemplate>
+                    <DataTemplate DataType="{x:Type models:Note}">
+                        <StackPanel Margin="4" Spacing="6">
+                            <TextBlock FontWeight="Bold" Text="{Binding Header}" />
+                            <TextBlock Text="{Binding Content}" TextWrapping="Wrap" />
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </Border>
+    </Grid>
 </Window>
